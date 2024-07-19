@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Agendar Cita</h1>
+    <form method="POST">
+        <select name="paciente_id" required>
+            <option value="" disabled selected>Seleccionar Paciente</option>
+            {% for paciente in pacientes %}
+                <option value="{{ paciente.id }}">{{ paciente.nombre }} {{ paciente.apellido }}</option>
+            {% endfor %}
+        </select>
+        <select name="medico_id" required>
+            <option value="" disabled selected>Seleccionar Médico</option>
+            {% for medico in medicos %}
+                <option value="{{ medico.id }}">{{ medico.nombre }} {{ medico.apellido }} - {{ medico.especialidad }}</option>
+            {% endfor %}
+        </select>
+        <input type="date" name="fecha" required>
+        <input type="time" name="hora" required>
+        <select name="consultorio" required>
+            <option value="" disabled selected>Seleccionar Consultorio</option>
+            {% for consultorio in consultorios %}
+                <option value="{{ consultorio.numero }}">{{ consultorio.numero }}, Piso {{ consultorio.piso }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Agendar Cita</button>
+    </form>
+
+    <h2>Lista de Citas</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Paciente</th>
+                <th>Médico</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Consultorio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cita in citas %}
+            <tr>
+                <td>{{ cita.paciente_nombre }}</td>
+                <td>{{ cita.medico_nombre }} - {{ cita.medico_especialidad }}</td>
+                <td>{{ cita.fecha }}</td>
+                <td>{{ cita.hora }}</td>
+                <td>Consultorio {{ cita.consultorio }}</td>
+                <td>
+                
+                    <form action="{{ url_for('eliminar_cita', id=cita.id) }}" method="POST" style="display: inline;">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

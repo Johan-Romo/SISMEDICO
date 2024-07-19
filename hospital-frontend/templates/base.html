@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión Hospitalaria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('pacientes') }}">Pacientes</a></li>
+            <li><a href="{{ url_for('medicos') }}">Médicos</a></li>
+            <li><a href="{{ url_for('consultorios') }}">Consultorios</a></li>
+            <li><a href="{{ url_for('citas') }}">Citas</a></li>
+            <li><a href="{{ url_for('editar_citas') }}">Editar Citas</a></li>
+        </ul>
+    </nav>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

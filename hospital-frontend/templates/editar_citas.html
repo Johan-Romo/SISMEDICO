@@ -1,0 +1,59 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Editar Citas</h1>
+
+<select id="cita-selector">
+    <option value="">Seleccione una cita</option>
+    {% for cita in citas %}
+    <option value="{{ cita.id }}">{{ cita.fecha }} - {{ cita.hora }} - Paciente: {{ cita.paciente_id }}</option>
+    {% endfor %}
+</select>
+
+<form id="editar-cita-form" method="POST" style="display: none;">
+    <input type="hidden" id="cita_id" name="cita_id">
+    <label for="paciente_id">Paciente:</label>
+    <select name="paciente_id" id="paciente_id" required>
+        {% for paciente in pacientes %}
+        <option value="{{ paciente.id }}">{{ paciente.nombre }} {{ paciente.apellido }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="medico_id">Médico:</label>
+    <select name="medico_id" id="medico_id" required>
+        {% for medico in medicos %}
+        <option value="{{ medico.id }}">{{ medico.nombre }} {{ medico.apellido }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" name="fecha" required>
+
+    <label for="hora">Hora:</label>
+    <input type="time" id="hora" name="hora" required>
+
+    <label for="consultorio">Consultorio:</label>
+    <select name="consultorio" id="consultorio" required>
+        {% for consultorio in consultorios %}
+        <option value="{{ consultorio.id }}">{{ consultorio.numero }} - Piso {{ consultorio.piso }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Actualizar Cita</button>
+</form>
+
+<script>
+document.getElementById('cita-selector').addEventListener('change', function() {
+    var citaId = this.value;
+    var form = document.getElementById('editar-cita-form');
+    if (citaId) {
+        form.style.display = 'block';
+        document.getElementById('cita_id').value = citaId;
+        // Aquí puedes agregar lógica para cargar los datos de la cita seleccionada
+    } else {
+        form.style.display = 'none';
+    }
+});
+</script>
+{% endblock %}

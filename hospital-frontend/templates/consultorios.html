@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Consultorios</h1>
+    <form method="POST">
+        <input type="text" name="numero" placeholder="Número" required>
+        <input type="number" name="piso" placeholder="Piso" required>
+        <button type="submit">Crear Consultorio</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Piso</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for consultorio in consultorios %}
+            <tr>
+                <td>{{ consultorio.numero }}</td>
+                <td>{{ consultorio.piso }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
